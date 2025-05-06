@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Feliz Aniversário Princesa!</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      font-family: 'Segoe UI', sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    .section {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      position: relative;
+    }
+
+    /* SEÇÃO 1: Mensagem com slideshow */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      font-size: 3em;
+      font-weight: bold;
+      z-index: 1;
+    }
+
+    .slideshow {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+    }
+
+    .slideshow img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      animation: fade 24s infinite;
+      filter: blur(5px);
+      opacity: 0;
+    }
+
+    .slideshow img:nth-child(1) { animation-delay: 0s; }
+    .slideshow img:nth-child(2) { animation-delay: 8s; }
+    .slideshow img:nth-child(3) { animation-delay: 16s; }
+
+    @keyframes fade {
+      0% { opacity: 0; }
+      8% { opacity: 1; }
+      30% { opacity: 1; }
+      38% { opacity: 0; }
+      100% { opacity: 0; }
+    }
+
+    /* SEÇÃO 2: Vídeo */
+    .video-section {
+      background: #111;
+      flex-direction: column;
+    }
+
+    .video-wrapper {
+      position: relative;
+      width: 80%;
+      max-width: 800px;
+      cursor: pointer;
+    }
+
+    .video-wrapper video {
+      width: 100%;
+      border-radius: 10px;
+      transition: all 0.4s ease;
+    }
+
+    .video-wrapper.fullscreen video {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: 10;
+    }
+
+    /* SEÇÃO 3: Galeria */
+    .gallery-section {
+      background-color: #000;
+      flex-direction: column;
+      padding: 2em;
+      color: #fff;
+    }
+
+    .gallery-bg {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('fundo-galeria.jpg') center/cover no-repeat;
+      filter: blur(5px) brightness(0.4);
+      z-index: -1;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .gallery img {
+      width: 100%;
+      border-radius: 8px;
+      transition: transform 0.3s;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- SEÇÃO 1: Frase com slideshow -->
+  <section class="section hero">
+    <div class="slideshow">
+      <img src="img1.jpg" alt="foto 1">
+      <img src="img2.jpg" alt="foto 2">
+      <img src="img3.jpg" alt="foto 3">
+    </div>
+    <div>Feliz Aniversário Princesa!</div>
+  </section>
+
+  <!-- SEÇÃO 2: Vídeo -->
+  <section class="section video-section">
+    <div class="video-wrapper" onclick="expandVideo(this)">
+      <video src="video.mp4" controls></video>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 3: Galeria -->
+  <section class="section gallery-section">
+    <div class="gallery-bg"></div>
+    <h2 style="margin-bottom: 1em;">Momentos nossos 💖</h2>
+    <div class="gallery">
+      <img src="galeria1.jpeg" alt="">
+      <img src="galeria2.jpeg" alt="">
+      <img src="galeria3.jpeg" alt="">
+      <img src="galeria4.jpeg" alt="">
+      <img src="galeria5.jpeg" alt="">
+      <img src="galeria6.jpeg" alt="">
+      <img src="galeria7.jpeg" alt="">
+      <img src="galeria8.jpeg" alt="">
+      <img src="galeria9.jpeg" alt="">
+      <img src="galeria10.jpeg" alt="">
+      <img src="galeria11.jpeg" alt="">
+      <img src="galeria12.jpeg" alt="">
+      <img src="galeria13.jpeg" alt="">
+      <img src="galeria14.jpeg" alt="">
+      <img src="galeria15.jpeg" alt="">
+      <img src="galeria16.jpeg" alt="">
+      <img src="galeria17.jpeg" alt="">
+      <img src="galeria18.jpeg" alt="">
+      <img src="galeria19.jpeg" alt="">
+      <img src="galeria20.jpeg" alt="">
+      <img src="galeria21.jpeg" alt="">
+      <img src="galeria22.jpeg" alt="">
+      <img src="galeria23.jpeg" alt="">
+      <img src="galeria24.jpeg" alt="">
+      <img src="galeria25.jpeg" alt="">
+      <img src="galeria26.jpeg" alt="">
+      <img src="galeria27.jpeg" alt="">
+      <img src="galeria28.jpeg" alt="">
+      <img src="galeria29.jpeg" alt="">
+      <img src="galeria30.jpeg" alt="">
+      <img src="galeria31.jpeg" alt="">
+      <img src="galeria32.jpeg" alt="">
+      <img src="galeria33.jpeg" alt="">
+      <img src="galeria34.jpeg" alt="">
+      <img src="galeria35.jpeg" alt="">
+      <img src="galeria36.jpeg" alt="">
+      <img src="galeria37.jpeg" alt="">
+      <img src="galeria38.jpeg" alt="">
+      <img src="galeria39.jpeg" alt="">
+      <img src="galeria40.jpeg" alt="">
+      <img src="galeria41.jpeg" alt="">
+      <img src="galeria42.jpeg" alt="">
+      <img src="galeria43.jpeg" alt="">
+      <img src="galeria44.jpeg" alt="">
+      <img src="galeria45.jpeg" alt="">
+      <img src="galeria46.jpeg" alt="">
+      <img src="galeria47.jpeg" alt="">
+      <img src="galeria48.jpeg" alt="">
+      <img src="galeria49.jpeg" alt="">
+      <img src="galeria50.jpeg" alt="">
+      <img src="galeria51.jpeg" alt="">
+      <img src="galeria52.jpeg" alt="">
+      <img src="galeria53.jpeg" alt="">
+      <img src="galeria54.jpeg" alt="">
+      <img src="galeria55.jpeg" alt="">
+      <img src="galeria56.jpeg" alt="">
+      <img src="galeria57.jpeg" alt="">
+      <img src="galeria58.jpeg" alt="">
+      <img src="galeria59.jpeg" alt="">
+      <img src="galeria60.jpeg" alt="">
+      <img src="galeria61.jpeg" alt="">
+      <img src="galeria62.jpeg" alt="">
+      <img src="galeria63.jpeg" alt="">
+      <img src="galeria64.jpeg" alt="">
+      <img src="galeria65.jpeg" alt="">
+      <img src="galeria66.jpeg" alt="">
+      <img src="galeria67.jpeg" alt="">
+      <img src="galeria68.jpeg" alt="">
+      <img src="galeria69.jpeg" alt="">
+      <img src="galeria70.jpeg" alt="">
+      <img src="galeria71.jpeg" alt="">
+      <img src="galeria72.jpeg" alt="">
+      <img src="galeria73.jpeg" alt="">
+      <img src="galeria74.jpeg" alt="">
+      <img src="galeria75.jpeg" alt="">
+      <img src="galeria76.jpeg" alt="">
+      <img src="galeria77.jpeg" alt="">
+      <img src="galeria78.jpeg" alt="">
+      <img src="galeria79.jpeg" alt="">
+      <img src="galeria80.jpeg" alt="">
+      <img src="galeria81.jpeg" alt="">
+      <img src="galeria82.jpeg" alt="">
+      <img src="galeria83.jpeg" alt="">
+      <img src="galeria84.jpeg" alt="">
+      <img src="galeria85.jpeg" alt="">
+      <img src="galeria86.jpeg" alt="">
+      <img src="galeria87.jpeg" alt="">
+      <img src="galeria88.jpeg" alt="">
+      <img src="galeria89.jpeg" alt="">
+      <img src="galeria90.jpeg" alt="">
+      <img src="galeria91.jpeg" alt="">
+      <img src="galeria92.jpeg" alt="">
+      <img src="galeria93.jpeg" alt="">
+      <img src="galeria94.jpeg" alt="">
+      <img src="galeria95.jpeg" alt="">
+      <img src="galeria96.jpeg" alt="">
+      <img src="galeria97.jpeg" alt="">
+      <img src="galeria98.jpeg" alt="">
+      <img src="galeria99.jpeg" alt="">
+      <img src="galeria100.jpeg" alt="">
+      <img src="galeria101.jpeg" alt="">
+      <img src="galeria102.jpeg" alt="">
+      <img src="galeria103.jpeg" alt="">
+      <img src="galeria104.jpeg" alt="">
+      <img src="galeria105.jpeg" alt="">
+      <img src="galeria106.jpeg" alt="">
+      <img src="galeria107.jpeg" alt="">
+      <img src="galeria108.jpeg" alt="">
+      <img src="galeria109.jpeg" alt="">
+      <img src="galeria110.jpeg" alt="">
+      <img src="galeria111.jpeg" alt="">
+      <img src="galeria112.jpeg" alt="">
+      <img src="galeria113.jpeg" alt="">
+      <img src="galeria114.jpeg" alt="">
+      <img src="galeria115.jpeg" alt="">
+      <img src="galeria116.jpeg" alt="">
+      <img src="galeria117.jpeg" alt="">
+      <img src="galeria118.jpeg" alt="">
+      <img src="galeria119.jpeg" alt="">
+      <img src="galeria120.jpeg" alt="">
+      <img src="galeria121.jpeg" alt="">
+      <img src="galeria122.jpeg" alt="">
+      <img src="galeria123.jpeg" alt="">
+      <img src="galeria124.jpeg" alt="">
+      <img src="galeria125.jpeg" alt="">
+      <img src="galeria126.jpeg" alt="">
+      <img src="galeria127.jpeg" alt="">
+      <img src="galeria128.jpeg" alt="">
+      <img src="galeria129.jpeg" alt="">
+      <img src="galeria130.jpeg" alt="">
+      <img src="galeria131.jpeg" alt="">
+      <img src="galeria132.jpeg" alt="">
+      <img src="galeria133.jpeg" alt="">
+      <img src="galeria134.jpeg" alt="">
+      <img src="galeria135.jpeg" alt="">
+      <img src="galeria136.jpeg" alt="">
+      <img src="galeria137.jpeg" alt="">
+      <img src="galeria138.jpeg" alt="">
+      <img src="galeria139.jpeg" alt="">
+      <img src="galeria140.jpeg" alt="">
+      <img src="galeria141.jpeg" alt="">
+      <img src="galeria142.jpeg" alt="">
+      <img src="galeria143.jpeg" alt="">
+      <img src="galeria144.jpeg" alt="">
+      <img src="galeria145.jpeg" alt="">
+      <img src="galeria146.jpeg" alt="">
+    </div>
+  </section>
+
+  <script>
+    function expandVideo(wrapper) {
+      wrapper.classList.toggle('fullscreen');
+      const video = wrapper.querySelector('video');
+      if (wrapper.classList.contains('fullscreen')) {
+        video.play();
+      } else {
+        video.pause();
+      }
+    }
+  </script>
+</body>
+</html>
