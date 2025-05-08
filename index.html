@@ -1,195 +1,128 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <!-- Meta viewport corrigida para responsividade no mobile -->
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />  <!-- Meta para layout responsivo -->
+  <title>Parabéns Meu Amor</title>
+  <!-- Fonte Inter do Google Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" />
   <style>
-    /* Font faces importados (Inter, Fraunces, Nobile etc.) */
-    @font-face {
-      font-family: 'Inter';
-      font-style: normal;
-      font-weight: 100;
-      src: url("https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyeAZJhiI2B.woff2") format('woff2');
-      unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+    /* Reseta margens padrão para evitar espaços indesejados */
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background: #000; /* cor de fundo de reserva caso vídeo não carregue */
+      color: #333;      /* cor de texto padrão (poderá ser sobrescrita em seções) */
     }
-    /* ... (demais @font-face para Inter, Fraunces e Nobile – mantidos do arquivo original) ... */
-    @font-face {
-      font-family: 'Fraunces';
-      font-style: normal;
-      font-weight: 400;
-      src: url("https://fonts.gstatic.com/s/fraunces/v35/6NUh8FyLNQOQZAnv9bYEvDiIdE9x0zzr3cXB.ttf") format('truetype');
-      /* ... faixas de caracteres ... */
+    /* Vídeo de fundo em tela cheia */
+    .bg-video {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;       /* Cobre todo o espaço, cortando bordas se necessário para manter proporção */
+      z-index: 1;
     }
-    /* ... @font-face de Nobile ... */
-    @font-face {
-      font-family: 'Nobile';
-      font-style: normal;
-      font-weight: 400;
-      src: url("https://fonts.gstatic.com/s/nobile/v18/m8JTjflSeaOVl1iGWa3W.woff2") format('woff2');
-      /* ... faixas de caracteres ... */
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);  /* overlay preto com 50% transparência */
+      z-index: 2;
+      pointer-events: none;           /* permite clicar nos elementos abaixo do overlay */
     }
-    /* (Os @font-face completos foram preservados do export, garantindo que as fontes sejam carregadas) */
-
-    /* CSS Global do Gamma (preservado) */
-    html { overflow-x: hidden; }  /* evitar scroll horizontal */
-    body { overflow-x: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch; margin: 0; }
-    #__next { height: auto !important; }  /* permitir altura flexível */
-    .css-10klw3m { height: auto !important; }  /* remover altura fixa do container principal */
-    /* ... demais estilos originais do Gamma ... */
-    .css-lwvdx8{display:flex; flex-direction:column; align-items:center; position:relative; padding-bottom:0px; min-height: calc(100vh - var(--editor-padding-top, 0px));}
-    .css-lwvdx8 .block-paragraph{font-size:1em; line-height: var(--line-height-body);}
-    .css-lwvdx8 .block-heading .heading[level="1"]{font-size:2em; line-height: var(--line-height-heading);}
-    @media screen and (min-width: 30em){ .css-lwvdx8 .block-heading .heading[level="1"]{font-size:2.5em;} }
-    .css-lwvdx8 .block-heading .heading[level="2"]{font-size:1.5em; line-height: var(--line-height-heading);}
-    @media screen and (min-width: 30em){ .css-lwvdx8 .block-heading .heading[level="2"]{font-size:2em;} }
-    /* ... (demais estilos Chakra/Emotion do Gamma foram mantidos) ... */
-
-    /* -------- Ajustes personalizados para responsividade -------- */
-    <style>
-  #bg-video {
-    position: fixed;
-    top: 0;
-    left: 0;
-    min-width: 100vw;
-    min-height: 100vh;
-    object-fit: cover;
-    z-index: -2;
-  }
-
-  .video-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.4);
-    z-index: -1;
-  }
-</style>
-
-    /* Centralizar todos os textos dentro dos cards */
-    .card-content, .card-body { text-align: center !important; }
-    /* Garantir que imagens/vídeos não estourem da tela */
-    img, video, iframe { max-width: 100%; height: auto; }
-    /* Esconder botão de toggle/expand (não funcional no estático) */
-    .block-toggle, .css-111t28n { display: none !important; }
-    /* Reduzir padding lateral dos cards em telas pequenas para melhorar uso do espaço */
-    @media (max-width: 480px) {
-      .card-wrapper {
-        --card-outer-padding-x: 1em;
+    /* Contêiner centralizado para o conteúdo */
+    .content-container {
+      position: relative;
+      z-index: 3;            /* acima do vídeo e overlay */
+      max-width: 800px;      /* largura máxima do conteúdo para não esticar demais em telas grandes */
+      margin: 40px auto;     /* centraliza horizontalmente e dá espaçamento superior/inferior */
+      padding: 0 20px;       /* espaço horizontal interno para não encostar nas bordas em mobile */
+    }
+    /* Estilo dos "cards" de seção */
+    .card {
+      background: #fff;            /* fundo padrão branco (pode ser sobrescrito para outras seções) */
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 20px;        /* espaço após cada card */
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);  /* leve sombra para destaque (opcional) */
+      overflow: hidden;           /* garante que cantos arredondados também afetem conteúdo interno (ex: imagem) */
+      opacity: 0;                 /* início oculto para animação */
+      transform: translateY(20px);
+      animation: fadeInUp 1s ease forwards;
+    }
+    .card:nth-of-type(2) {
+      animation-delay: 0.3s;      /* pequeno atraso para segundo card surgir depois do primeiro */
+    }
+    /* Estilos específicos das seções */
+    .card2 {
+      background: #728486;   /* fundo cinza-azulado da segunda seção, conforme estilo original */
+      color: #ffffff;        /* texto branco nessa seção para contraste */
+    }
+    /* Imagem de topo no primeiro card */
+    .card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+    }
+    /* Títulos e textos */
+    h1, h2, h3 {
+      text-align: center;
+      margin: 20px 0 15px;
+      line-height: 1.2;
+    }
+    h1 {
+      font-size: 2em;        /* título principal maior */
+      color: #314042;        /* cor escura do título no primeiro card (tom semelhante ao usado originalmente) */
+    }
+    h2 {
+      font-size: 1.5em;
+      /* Em .card2, a cor do h2 ficará branca herdada do .card2, senão poderíamos especificar aqui */
+    }
+    p {
+      margin: 15px 0;
+      font-size: 1em;
+      line-height: 1.6;
+    }
+    /* Animação fade-in para os cards */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
     }
   </style>
 </head>
 <body>
-  <!-- VÍDEO DE FUNDO COMEÇA AQUI -->
-  <video autoplay muted loop playsinline id="bg-video">
-    <source src="videos/VIDEO BG.mp4" type="video/mp4" />
-    Seu navegador não suporta vídeo em HTML5.
-  </video>
-  <div class="video-overlay"></div>
-  <!-- VÍDEO DE FUNDO TERMINA AQUI -->
 
-  <div id="__next">
-    <!-- conteúdo do site -->
+  <!-- Vídeo de fundo cobrindo toda a tela -->
+  <video class="bg-video" src="videos/fundo.mp4" autoplay muted loop playsinline></video>
+  <div class="overlay"></div>
 
-  <div id="__next">
-    <!-- Início do conteúdo exportado do Gamma -->
-    <div class="simple-editor-root editor-animations-enabled css-1kxonj9" data-is-mobile="false">
-      <div class="ProseMirror">
-        <div data-node-view-wrapper="" style="white-space:normal">
-          <div data-node-view-content="" style="white-space:pre-wrap">
-            <div data-node-view-content-inner="doc" style="white-space:inherit">
-              <!-- Card 1: Título e texto principal -->
-              <div data-pos="1" class="react-renderer node-title animatable-on-load animatable-on-load-annotatable block block-title first-block first-block-in-card" style="white-space: inherit;">
-                <div style="white-space:normal; display:flex; flex-direction:column; text-align:center; align-items:center;" data-node-view-wrapper="">
-                  <div dir="auto" level="1" class="title themed-heading" data-placeholder="Untitled" style="white-space:pre-wrap; min-width:min(100%, 10em); align-self:center;" data-node-view-content="">
-                    <div data-node-view-content-inner="title" style="white-space:inherit">
-                      <span style="--text-color: #4A6064;" class="textColor">Parabéns Meu Amor!</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div data-pos="24" class="react-renderer node-paragraph animatable-on-load animatable-on-load-annotatable block block-paragraph" style="white-space: inherit;">
-                <div style="white-space:normal; position:relative" data-node-view-wrapper="">
-                  <div dir="auto" style="white-space:pre-wrap; text-align:center" data-node-view-content="">
-                    <div data-node-view-content-inner="paragraph" style="white-space:inherit">
-                      <span style="--text-color: #4A6064;" class="textColor">Essa é uma homenagem simples, mas cheia de amor, pra celebrar o seu dia! Fico muito feliz por estar ao seu lado, compartilhando mais um ano de conquistas e aprendizados. Mesmo com os desafios, você sempre segue firme, e me enche de orgulho ver tudo o que conquistou. Te admiro demais por ser uma mulher dedicada, determinada, forte, casca dura mas que ainda assim, é doce, carinhosa e afetuosa. </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div data-pos="421" class="react-renderer node-paragraph animatable-on-load animatable-on-load-annotatable block block-paragraph last-block" style="white-space: inherit;">
-                <div style="white-space:normal; position:relative" data-node-view-wrapper="">
-                  <div dir="auto" style="white-space:pre-wrap; text-align:center" data-node-view-content="">
-                    <div data-node-view-content-inner="paragraph" style="white-space:inherit">
-                      <span style="--text-color: #4A6064;" class="textColor">Te amo pra sempre. Parabéns, amor!</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Fim do Card 1 -->
-              <!-- Card 2: Mensagem especial e placeholder de vídeo -->
-              <div data-pos="463" class="react-renderer node-card block block-card last-block" style="white-space: inherit;">
-                <div as="div" style="white-space:normal; min-height:0" data-node-view-wrapper="">
-                  <div data-animate-value="doc" data-card-id="3qsi6br5l880fas" class="card-wrapper card-expanded css-1gpiwj6">
-                    <div class="card-content css-1ahbibv">  <!-- card-content container with background -->
-                      <div class="card-body-background css-v6bcb8" contenteditable="false"></div>
-                      <div data-selection-ring="true" data-hide-comments="false" class="card-content" data-node-view-content-inner="card" style="display:grid; align-items:stretch; justify-content:stretch; min-height:100%; grid-template-columns:1fr; grid-template-rows:1fr; grid-template-areas:'body';">
-                        <!-- Título do card 2 -->
-                        <div data-pos="495" class="react-renderer node-heading animatable-on-load animatable-on-load-annotatable block block-heading first-block" style="white-space: inherit;">
-                          <div style="white-space:normal; display:flex; flex-direction:column; text-align:center; align-items:center;" data-node-view-wrapper="">
-                            <div dir="auto" level="1" class="heading themed-heading" data-placeholder="Título" style="white-space:pre-wrap;" data-node-view-content="">
-                              <div data-node-view-content-inner="heading" style="white-space:inherit">
-                                <span style="--text-color: #FAFFFE;" class="textColor">Uma Mensagem Especial Para Você</span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- Placeholder de vídeo (círculo branco com texto) -->
-                        <div data-pos="497" class="react-renderer node-video block block-video" style="white-space: inherit;">
-                          <div data-node-view-wrapper="" style="white-space:normal; position:relative;">
-                            <div class="themed-shape-themed-container" style="text-align:center;" data-node-view-content="">
-                              <!-- Circulo placeholder de vídeo -->
-                              <div class="themed-shape themed-clickable-box" style="width: 200px; height: 200px; border-radius: 50%; background-color:#FFFFFF; display:inline-flex; align-items:center; justify-content:center; box-shadow:0 0.25em 0.375em rgba(0,0,0,0.1);" contenteditable="false">
-                                <span style="color:#000; font-family:'Fraunces', serif; font-size:1.2em;">VIDEO<br>PLACE<br>HOLDER</span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- Texto oculto (agora visível) após expand -->
-                        <div data-pos="498" class="react-renderer node-paragraph animatable-on-load animatable-on-load-annotatable block block-paragraph" style="white-space: inherit;">
-                          <div style="white-space:normal; position:relative;" data-node-view-wrapper="">
-                            <div dir="auto" style="white-space:pre-wrap; text-align:center;" data-node-view-content="">
-                              <div data-node-view-content-inner="paragraph" style="white-space:inherit;">
-                                <span data-theme="dark" class="chakra-text css-0" style="color:#FAFFFE;">Cada momento é especial…</span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- Imagem inserida após o texto (exemplo de imagem do WhatsApp) -->
-                        <div data-pos="499" class="react-renderer node-smartLayout animatable-on-load-content-parent block block-smartLayout" style="white-space: inherit;">
-                          <div class="" dir="ltr" style="white-space:normal;" data-node-view-wrapper="">
-                            <div data-node-view-content="">
-                              <!-- Imagem 1 do layout (ajustada automaticamente) -->
-                              <img src="https://cdn.gamma.app/cudcyxzbc3cmkow/8c218d8c08184419890aada542392029/original/IMG-20240805-WA0017.jpg" alt="Foto 1" style="max-width:100%; border-radius: 1em;">
-                            </div>
-                          </div>
-                        </div>
-                        <!-- (Outras imagens e conteúdos adicionais poderiam seguir aqui conforme o export original) -->
-                      </div> <!-- fim card-content interior -->
-                    </div> <!-- fim card-content .css-1ahbibv -->
-                  </div> <!-- fim card-wrapper .css-1gpiwj6 -->
-                </div>
-              </div>
-              <!-- Fim do Card 2 -->
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Fim do conteúdo do __next -->
+  <div class="content-container">
+    <!-- Seção 1: Card branco com imagem e texto de parabéns -->
+    <section class="card card1">
+      <img src="imagem.jpg" alt="Foto ilustrativa" />
+      <h1>Parabéns Meu Amor!</h1>
+      <p>Essa é uma homenagem simples, mas cheia de amor, pra celebrar o seu dia! Fico muito feliz por estar ao seu lado, compartilhando mais um ano de conquistas e aprendizados. Mesmo com os desafios, você sempre segue firme, e me enche de orgulho ver tudo o que conquistou. Te admiro demais por ser uma mulher dedicada, determinada, forte, casca dura mas que ainda assim, é doce, carinhosa e afetuosa.</p>
+      <p>Te amo pra sempre. Parabéns, amor!</p>
+    </section>
+
+    <!-- Seção 2: Card cinza com mensagem especial -->
+    <section class="card card2">
+      <h2>Uma Mensagem Especial Para Você</h2>
+      <p>Cada momento é especial… (continuação da mensagem especial aqui)</p>
+      <p>Espero que cada segundo ao seu lado seja repleto de amor e alegria, e que possamos celebrar muitos e muitos momentos inesquecíveis juntos. Você merece tudo de melhor hoje e sempre!</p>
+    </section>
   </div>
+
 </body>
 </html>
