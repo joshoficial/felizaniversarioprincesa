@@ -46,6 +46,28 @@
     /* ... (demais estilos Chakra/Emotion do Gamma foram mantidos) ... */
 
     /* -------- Ajustes personalizados para responsividade -------- */
+    <style>
+  #bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 100vw;
+    min-height: 100vh;
+    object-fit: cover;
+    z-index: -2;
+  }
+
+  .video-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: -1;
+  }
+</style>
+
     /* Centralizar todos os textos dentro dos cards */
     .card-content, .card-body { text-align: center !important; }
     /* Garantir que imagens/vídeos não estourem da tela */
@@ -61,6 +83,17 @@
   </style>
 </head>
 <body>
+  <!-- VÍDEO DE FUNDO COMEÇA AQUI -->
+  <video autoplay muted loop playsinline id="bg-video">
+    <source src="videos/VIDEO BG.mp4" type="video/mp4" />
+    Seu navegador não suporta vídeo em HTML5.
+  </video>
+  <div class="video-overlay"></div>
+  <!-- VÍDEO DE FUNDO TERMINA AQUI -->
+
+  <div id="__next">
+    <!-- conteúdo do site -->
+
   <div id="__next">
     <!-- Início do conteúdo exportado do Gamma -->
     <div class="simple-editor-root editor-animations-enabled css-1kxonj9" data-is-mobile="false">
