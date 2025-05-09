@@ -1,104 +1,201 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Parabéns Meu Amor</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Homenagem Especial</title>
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700&family=Nobile&display=swap" rel="stylesheet">
   <style>
+    /* Estilos Gerais */
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
     }
     body {
       font-family: 'Nobile', sans-serif;
-      background: #1e1e1e;
-      color: #fff;
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      color: #333;
+      line-height: 1.6;
+      background: #000;
+      overflow-x: hidden;
     }
+
+    /* Vídeo de Fundo */
+    #background-video {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      min-width: 100%;
+      min-height: 100%;
+      z-index: -1;
+      object-fit: cover;
+    }
+
+    /* Cartões */
     .card {
-      border-radius: 1rem;
-      padding: 2rem;
-      margin-bottom: 2rem;
-      width: 100%;
       max-width: 600px;
-      transition: transform 0.6s ease-in, opacity 0.6s ease-in;
-      opacity: 0;
-      transform: translateY(20px);
+      margin: 40px auto;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      backdrop-filter: blur(4px);
     }
-    .card.visible {
-      opacity: 1;
-      transform: translateY(0);
+    .card-light {
+      background: rgba(255, 255, 255, 0.85);
+      color: #333;
     }
-    .light-card {
-      background: rgba(255,255,255,0.1);
+    .card-dark {
+      background: rgba(20, 50, 50, 0.85);
+      color: #f0f0f0;
     }
-    .dark-card {
-      background: rgba(0,0,0,0.5);
-    }
-    h1, h2 {
+
+    /* Títulos (Fraunces) */
+    h2 {
       font-family: 'Fraunces', serif;
-      margin-bottom: 1rem;
+      font-weight: 700;
+      font-size: 1.8em;
+      margin-bottom: 15px;
+      text-align: center;
     }
+
+    /* Imagem de Cabeçalho */
     .header-img {
       width: 100%;
-      height: 200px;
-      background: #ccc;
-      border-radius: 1rem;
-      margin-bottom: 1rem;
-      background-position: center;
-      background-size: cover;
+      border-radius: 10px 10px 0 0;
+      display: block;
+      margin-bottom: 15px;
     }
-    .video-thumb {
-      width: 200px;
-      height: 200px;
+
+    /* Texto do cartão */
+    .card-light p {
+      margin-bottom: 15px;
+      font-size: 1em;
+    }
+
+    /* Animações de texto */
+    .fade-in-up {
+      opacity: 0;
+      transform: translateY(20px) scale(0.95);
+      transition: opacity 0.6s ease-in, transform 0.6s ease-in;
+    }
+    .fade-in-up.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Botão de vídeo circular */
+    .video-button-container {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      margin: 30px auto;
+      cursor: pointer;
+    }
+    .video-thumbnail {
+      width: 100%;
+      height: 100%;
       border-radius: 50%;
-      background: #fff url('https://via.placeholder.com/200') center/cover no-repeat;
-      margin: auto;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      display: block;
+    }
+    .play-button {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      font-size: 2.5em;
+      pointer-events: none;
+    }
+
+    /* Galeria */
+    #galleryContainer h2 {
+      font-size: 1.5em;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      text-align: left;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+      margin-bottom: 15px;
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.5s ease, opacity 0.5s ease;
+    }
+    /* Imagens da galeria */
+    .gallery-img {
+      width: 100%;
+      border-radius: 8px;
       cursor: pointer;
+      transition: transform 0.3s ease;
     }
-    .gallery-container {
-      margin-top: 1.5rem;
-    }
-    .gallery-toggle {
-      background: none;
-      border: none;
-      color: #00f2ff;
-      font-size: 1rem;
-      margin-top: 1rem;
-      cursor: pointer;
-      text-decoration: underline;
-    }
-    .gallery {
-      display: none;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 1rem;
-    }
-    .gallery img {
-      width: 100px;
-      height: 100px;
-      object-fit: cover;
-      border-radius: 0.5rem;
-      cursor: pointer;
-      transition: transform 0.3s;
-    }
-    .gallery img:hover {
+    .gallery-img:hover {
       transform: scale(1.05);
     }
-    .gif-footer {
-      margin-top: 2rem;
-      width: 100%;
-      max-width: 600px;
-      height: auto;
+
+    /* Estado expandido da galeria */
+    #galleryContainer.expanded .gallery-grid {
+      max-height: 1000px;
+      opacity: 1;
     }
-    @media(min-width: 768px) {
-      .gallery img {
+
+    /* Botão "Ver tudo" */
+    #toggleGallery {
+      display: block;
+      margin: 0 auto 10px auto;
+      padding: 10px 20px;
+      border: none;
+      background: #6b8c8a;
+      color: #fff;
+      font-size: 1em;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    #toggleGallery:hover {
+      background: #557671;
+    }
+
+    /* Modal de imagem */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 8px;
+      box-shadow: 0 0 10px #fff;
+    }
+    .close {
+      position: absolute;
+      top: 20px; right: 30px;
+      color: #fff;
+      font-size: 2em;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    @media (max-width: 600px) {
+      .card {
+        margin: 20px 10px;
+        padding: 15px;
+      }
+      h2 {
+        font-size: 1.5em;
+      }
+      .video-button-container {
         width: 120px;
         height: 120px;
       }
@@ -106,50 +203,102 @@
   </style>
 </head>
 <body>
-  <div class="card light-card fade-in">
-    <div class="header-img" style="background-image: url('https://via.placeholder.com/600x200');"></div>
-    <h1>Parabéns Meu Amor!</h1>
-    <p>Essa é uma homenagem simples, mas cheia de amor, pra celebrar o seu dia! Fico muito feliz por estar ao seu lado, compartilhando mais um ano de conquistas e aprendizados. Mesmo com os desafios, você sempre segue firme, e me enche de orgulho ver tudo o que conquistou. Te admiro demais por ser uma mulher dedicada, determinada, forte, casca dura mas que ainda assim, é doce, carinhosa e afetuosa.<br><br>Te amo pra sempre. Parabéns, amor!</p>
+
+  <!-- Vídeo de Fundo -->
+  <video autoplay muted loop id="background-video">
+    <source src="videos/fundo.mp4" type="video/mp4">
+    Seu navegador não suporta o elemento de vídeo.
+  </video>
+
+  <!-- Primeiro Card Claro -->
+  <div class="card card-light">
+    <!-- Imagem de Cabeçalho (placeholder) -->
+    <img src="https://source.unsplash.com/800x400/?love" alt="Imagem de cabeçalho" class="header-img">
+    <h2>Parabéns Meu Amor!</h2>
+    <p class="fade-in-up">Essa é uma homenagem simples, mas cheia de amor, pra celebrar o seu dia! Fico muito feliz por estar ao seu lado, compartilhando mais um ano de conquistas e aprendizados. Mesmo com os desafios, você sempre segue firme, e me enche de orgulho ver tudo o que conquistou.</p>
+    <p class="fade-in-up">Te admiro demais por ser uma mulher dedicada, determinada e forte. Casca dura mas que ainda assim, é doce, carinhosa e afetuosa.</p>
+    <p class="fade-in-up">Te amo pra sempre. Parabéns, amor!</p>
   </div>
 
-  <div class="card dark-card fade-in">
-    <h2>Uma Mensagem Especial Para Você</h2>
-    <div class="video-thumb" onclick="alert('Reproduzir vídeo')"></div>
-    <div class="gallery-container">
-      <h2>Cada momento é especial...</h2>
-      <button class="gallery-toggle" onclick="toggleGallery()">Ver tudo</button>
-      <div class="gallery" id="gallery">
-        <img src="https://via.placeholder.com/150" onclick="openImage(this.src)" />
-        <img src="https://via.placeholder.com/150" onclick="openImage(this.src)" />
-        <img src="https://via.placeholder.com/150" onclick="openImage(this.src)" />
-        <img src="https://via.placeholder.com/150" onclick="openImage(this.src)" />
-        <img src="https://via.placeholder.com/150" onclick="openImage(this.src)" />
+  <!-- Segundo Card Escuro -->
+  <div class="card card-dark">
+    <h2 class="fade-in-up">Uma Mensagem Especial Para Você</h2>
+    <!-- Botão de vídeo (placeholder) -->
+    <div class="video-button-container">
+      <img src="https://via.placeholder.com/150" alt="Thumbnail do vídeo" class="video-thumbnail">
+      <div class="play-button">&#9658;</div>
+    </div>
+    <!-- Seção de Galeria -->
+    <div id="galleryContainer">
+      <h2 class="fade-in-up">Cada momento é especial...</h2>
+      <div class="gallery-grid">
+        <!-- Imagens da galeria (placeholders) -->
+        <img src="https://picsum.photos/id/1015/300/200" alt="Momento 1" class="gallery-img">
+        <img src="https://picsum.photos/id/1016/300/200" alt="Momento 2" class="gallery-img">
+        <img src="https://picsum.photos/id/1018/300/200" alt="Momento 3" class="gallery-img">
+        <img src="https://picsum.photos/id/1025/300/200" alt="Momento 4" class="gallery-img">
+        <img src="https://picsum.photos/id/1035/300/200" alt="Momento 5" class="gallery-img">
+        <img src="https://picsum.photos/id/1041/300/200" alt="Momento 6" class="gallery-img">
       </div>
+      <button id="toggleGallery">Ver tudo</button>
     </div>
   </div>
 
-  <img class="gif-footer" src="https://media.giphy.com/media/l0MYEqEzwMWFCg8rm/giphy.gif" alt="gif romântico" />
+  <!-- Modal para imagens da galeria -->
+  <div id="imageModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="modalImg" alt="Imagem Ampliada">
+  </div>
 
   <script>
-    function toggleGallery() {
-      const gallery = document.getElementById('gallery');
-      gallery.style.display = gallery.style.display === 'flex' ? 'none' : 'flex';
-    }
+    // Animação de aparição de texto
+    document.addEventListener("DOMContentLoaded", function() {
+      const faders = document.querySelectorAll('.fade-in-up');
+      const options = { threshold: 0.1 };
+      const observer = new IntersectionObserver(function(entries, observer) {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, options);
+      faders.forEach(el => observer.observe(el));
+    });
 
-    function openImage(src) {
-      const win = window.open();
-      win.document.write('<img src="' + src + '" style="width:100%">');
-    }
+    // Alterna galeria expandida/colapsada
+    const galleryContainer = document.getElementById('galleryContainer');
+    const toggleBtn = document.getElementById('toggleGallery');
+    toggleBtn.addEventListener('click', function() {
+      if (galleryContainer.classList.contains('expanded')) {
+        galleryContainer.classList.remove('expanded');
+        this.textContent = 'Ver tudo';
+      } else {
+        galleryContainer.classList.add('expanded');
+        this.textContent = 'Ver menos';
+      }
+    });
 
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
+    // Função para abrir modal de imagem
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImg');
+    const galleryImgs = document.querySelectorAll('.gallery-img');
+    galleryImgs.forEach(img => {
+      img.addEventListener('click', function() {
+        modal.style.display = 'flex';
+        modalImg.src = this.src;
       });
-    }, { threshold: 0.1 });
+    });
 
-    document.querySelectorAll('.card').forEach(card => observer.observe(card));
+    // Fechar modal ao clicar no 'X' ou fora da imagem
+    document.querySelector('.close').addEventListener('click', function() {
+      modal.style.display = 'none';
+    });
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
   </script>
 </body>
 </html>
